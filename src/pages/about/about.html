@@ -7,5 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  test
+  <!-- <ul>
+    <li *ngFor="let item of items | async">
+        <pre>{{ item | json }}</pre>
+    </li>
+</ul> -->
+<ul>
+  <li *ngFor="let todo of todo$ | async"
+      [class.completed]="todo.completed">
+    {{ todo.description }}
+  </li>
+</ul>
 </ion-content>
