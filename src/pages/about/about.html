@@ -7,15 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <ul>
-    <li *ngFor="let item of items | async">
-        <pre>{{ item | json }}</pre>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <input placeholder="desc" name="desc" ngModel required #first="ngModel">
+    <button>Submit</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let todo of todo$ | async"
+        [class.completed]="todo.completed">
+      {{ todo.description }}
     </li>
-</ul> -->
-<ul>
-  <li *ngFor="let todo of todo$ | async"
-      [class.completed]="todo.completed">
-    {{ todo.description }}
-  </li>
-</ul>
+  </ul>
+
 </ion-content>

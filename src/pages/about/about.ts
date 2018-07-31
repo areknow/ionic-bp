@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -25,6 +26,14 @@ export class AboutPage {
   ) {
     this.todoCollectionRef = this.afs.collection<Todo>('todos');
     this.todo$ = this.todoCollectionRef.valueChanges();
+  }
+
+  onSubmit(f: NgForm) {
+    let todoDesc = f.value.desc;
+    console.log(f.value);
+    if (todoDesc && todoDesc.trim().length) {
+      this.todoCollectionRef.add({ description: todoDesc, completed: false });
+    }
   }
 
 }
