@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
+import { ModalController } from 'ionic-angular';
+import { ModalPage } from '../modal/modal';
+
 export interface Todo {
   description: string;
   completed: boolean;
@@ -22,7 +25,8 @@ export class AboutPage {
 
   constructor(
     public navCtrl: NavController,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    public modalCtrl: ModalController
   ) {
     this.todoCollectionRef = this.afs.collection<Todo>('todos');
     this.todo$ = this.todoCollectionRef.valueChanges();
@@ -30,10 +34,19 @@ export class AboutPage {
 
   onSubmit(f: NgForm) {
     let todoDesc = f.value.desc;
-    console.log(f.value);
+    let todoCompleted = f.value.completed;
+
     if (todoDesc && todoDesc.trim().length) {
-      this.todoCollectionRef.add({ description: todoDesc, completed: false });
+      this.todoCollectionRef.add({ 
+        description: todoDesc, 
+        completed: todoCompleted ? true : false 
+      });
     }
+  }
+
+  openModal() {
+    const modal = this.modalCtrl.create(ModalPage);
+    modal.present();
   }
 
 }

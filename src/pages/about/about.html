@@ -1,16 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>BP</ion-title>
+      <ion-buttons end>
+        <button (click)="openModal()" ion-button icon-only color="royal">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content padding>
 
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
     <input placeholder="desc" name="desc" ngModel required #first="ngModel">
-    <button>Submit</button>
+    <button ion-button>Save</button>
   </form>
 
   <ul>
