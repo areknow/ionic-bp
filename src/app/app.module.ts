@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Components
-import { AboutPage } from '../pages/about/about';
+import { ChartPage } from '../pages/chart/chart';
 import { ModalPage } from '../pages/modal/modal';
 
 // Third party
@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    ChartPage,
     ModalPage
   ],
   imports: [
@@ -39,7 +39,7 @@ import { environment } from '../environments/environment';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    ChartPage,
     ModalPage
   ],
   providers: [

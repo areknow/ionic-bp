@@ -24,10 +24,10 @@ export interface Todo {
 // Class
 // ----------------------------------------------------------------------------
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+  selector: 'page-chart',
+  templateUrl: 'chart.html'
 })
-export class AboutPage {
+export class ChartPage {
 
   // Initialize the collection reference and todo list
   todoCollectionRef: AngularFirestoreCollection<Todo>;

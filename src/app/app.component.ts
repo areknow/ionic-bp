@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Component
-import { AboutPage } from '../pages/about/about';
+import { ChartPage } from '../pages/chart/chart';
 
 // ----------------------------------------------------------------------------
 // Class
@@ -20,7 +20,7 @@ import { AboutPage } from '../pages/about/about';
 export class MyApp {
 
   // Define landing page component
-  rootPage:any = AboutPage;
+  rootPage:any = ChartPage;
 
   // ----------------------------------------------------------------------------
   // Inject services
