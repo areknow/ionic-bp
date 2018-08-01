@@ -11,11 +11,6 @@
 
 <ion-content padding>
 
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-    <input placeholder="desc" name="desc" ngModel required #first="ngModel">
-    <button ion-button>Save</button>
-  </form>
-
   <ul>
     <li *ngFor="let todo of todo$ | async"
         [class.completed]="todo.completed">

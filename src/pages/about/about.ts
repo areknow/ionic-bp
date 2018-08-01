@@ -1,28 +1,41 @@
+// ============================================================================
+// Chart view
+// ============================================================================
+
+// Angular + Ionic
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
-
 import { Observable } from 'rxjs';
+import { NavController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 
+// Third party
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { ModalController } from 'ionic-angular';
+// Components
 import { ModalPage } from '../modal/modal';
 
+// Interfaces
 export interface Todo {
   description: string;
   completed: boolean;
 }
 
+// ----------------------------------------------------------------------------
+// Class
+// ----------------------------------------------------------------------------
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
 })
 export class AboutPage {
 
+  // Initialize the collection reference and todo list
   todoCollectionRef: AngularFirestoreCollection<Todo>;
   todo$: Observable<Todo[]>;
 
+  // ----------------------------------------------------------------------------
+  // Inject services
+  // ----------------------------------------------------------------------------
   constructor(
     public navCtrl: NavController,
     private afs: AngularFirestore,
@@ -32,18 +45,9 @@ export class AboutPage {
     this.todo$ = this.todoCollectionRef.valueChanges();
   }
 
-  onSubmit(f: NgForm) {
-    let todoDesc = f.value.desc;
-    let todoCompleted = f.value.completed;
-
-    if (todoDesc && todoDesc.trim().length) {
-      this.todoCollectionRef.add({ 
-        description: todoDesc, 
-        completed: todoCompleted ? true : false 
-      });
-    }
-  }
-
+  // ------------------------------------------------------
+  // Present the modal component
+  // ------------------------------------------------------
   openModal() {
     const modal = this.modalCtrl.create(ModalPage);
     modal.present();
