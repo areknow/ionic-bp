@@ -17,6 +17,7 @@ import { ModalPage } from '../pages/modal/modal';
 // Third party
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
+import { ChartsModule } from 'ng2-charts';
 
 // Environment
 import { environment } from '../environments/environment';
@@ -34,7 +35,8 @@ import { environment } from '../environments/environment';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

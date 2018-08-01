@@ -20,3 +20,7 @@
 input {
   text-align: right;
 }
+
+ion-app.ios [padding] .scroll-content {
+  padding: 0;
+}

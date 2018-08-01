@@ -11,10 +11,23 @@
 </ion-header>
 
 <!-- Page content -->
-<ion-content padding>
-  <ul>
-    <li *ngFor="let reading of readings$ | async">
-      {{ reading.systolic }}/{{ reading.diastolic }} - {{ reading.date | date: "MMM d, yyy - h:mm" }}
-    </li>
-  </ul>
+<ion-content>
+
+  <div class="chart" *ngIf="!dataLoading">
+    <canvas baseChart height="300"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType">
+    </canvas>
+  </div>
+
+  <ion-list>
+    <ion-item ion-item *ngFor="let reading of readings$ | async">
+       {{ reading.date | date: "MMM d, yyy - h:mm" }} : {{ reading.systolic }}/{{ reading.diastolic }}
+    </ion-item>
+  </ion-list>
+
 </ion-content>
