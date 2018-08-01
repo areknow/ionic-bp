@@ -13,9 +13,8 @@
 <!-- Page content -->
 <ion-content padding>
   <ul>
-    <li *ngFor="let todo of todo$ | async"
-        [class.completed]="todo.completed">
-      {{ todo.description }}
+    <li *ngFor="let reading of readings$ | async">
+      {{ reading.systolic }}/{{ reading.diastolic }} - {{ reading.date | date: "MMM d, yyy - h:mm" }}
     </li>
   </ul>
 </ion-content>

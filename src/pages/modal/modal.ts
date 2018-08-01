@@ -11,9 +11,10 @@ import { NavController, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 // Interfaces
-export interface Todo {
-  description: string;
-  completed: boolean;
+export interface readings {
+  systolic: string;
+  diastolic: boolean;
+  date: string;
 }
 
 // ----------------------------------------------------------------------------
@@ -26,7 +27,10 @@ export interface Todo {
 export class ModalPage {
 
   // Initialize the collection reference
-  todoCollectionRef: AngularFirestoreCollection<Todo>;
+  collection: AngularFirestoreCollection<readings>;
+
+  // Init date time 
+  localDateTime: string;
 
   // ----------------------------------------------------------------------------
   // Inject services
@@ -35,23 +39,31 @@ export class ModalPage {
     public navCtrl: NavController,
     public viewCtrl: ViewController,
     private afs: AngularFirestore,
-  ) {
-    this.todoCollectionRef = this.afs.collection<Todo>('todos');
+  ) { }
+
+  // ------------------------------------------------------
+  // Page loaded
+  // ------------------------------------------------------
+  ionViewDidLoad() {
+    // Prepare the collection
+    this.collection = this.afs.collection<readings>('readings');
+    // Set the date picker up
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    this.localDateTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
   }
 
   // ------------------------------------------------------
   // Submit the modal form and save data to firestore
   // ------------------------------------------------------
-  onSubmit(f: NgForm) {
-    let todoDesc = f.value.desc;
-    let todoCompleted = f.value.completed;
-    if (todoDesc && todoDesc.trim().length) {
-      this.todoCollectionRef.add({ 
-        description: todoDesc, 
-        completed: todoCompleted ? true : false 
+  submitForm(f: NgForm) {
+    // if (todoDesc && todoDesc.trim().length) {
+      this.collection.add({ 
+        systolic: f.value.systolic,
+        diastolic: f.value.diastolic,
+        date: f.value.date
       });
       this.viewCtrl.dismiss();
-    }
+    // }
   }
 
   // ------------------------------------------------------

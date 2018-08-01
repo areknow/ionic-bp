@@ -15,9 +15,10 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { ModalPage } from '../modal/modal';
 
 // Interfaces
-export interface Todo {
-  description: string;
-  completed: boolean;
+export interface readings {
+  systolic: string;
+  diastolic: boolean;
+  date: string;
 }
 
 // ----------------------------------------------------------------------------
@@ -30,8 +31,8 @@ export interface Todo {
 export class ChartPage {
 
   // Initialize the collection reference and todo list
-  todoCollectionRef: AngularFirestoreCollection<Todo>;
-  todo$: Observable<Todo[]>;
+  collection: AngularFirestoreCollection<readings>;
+  readings$: Observable<readings[]>;
 
   // ----------------------------------------------------------------------------
   // Inject services
@@ -40,9 +41,18 @@ export class ChartPage {
     public navCtrl: NavController,
     private afs: AngularFirestore,
     public modalCtrl: ModalController
-  ) {
-    this.todoCollectionRef = this.afs.collection<Todo>('todos');
-    this.todo$ = this.todoCollectionRef.valueChanges();
+  ) { }
+
+  // ------------------------------------------------------
+  // Page loaded
+  // ------------------------------------------------------
+  ionViewDidLoad() {
+    this.collection = this.afs.collection<readings>('readings');
+    this.readings$ = this.collection.valueChanges();
+
+    this.readings$.subscribe((data: any) => {
+      console.log(data);
+    }, (error: any) => console.log(error));
   }
 
   // ------------------------------------------------------
