@@ -1,21 +1,21 @@
+<!-- Page header -->
 <ion-header>
-    <ion-toolbar>
-      <ion-title>BP</ion-title>
-      <ion-buttons end>
-        <button (click)="openModal()" ion-button icon-only color="royal">
-          <ion-icon name="add"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>BP</ion-title>
+    <ion-buttons end>
+      <button (click)="openModal()" ion-button icon-only color="royal">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<!-- Page content -->
 <ion-content padding>
-
   <ul>
     <li *ngFor="let todo of todo$ | async"
         [class.completed]="todo.completed">
       {{ todo.description }}
     </li>
   </ul>
-
 </ion-content>

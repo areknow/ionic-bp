@@ -1,8 +1,7 @@
+<!-- Page header -->
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Add data
-    </ion-title>
+    <ion-title>Add data</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text color="primary" showWhen="ios">Cancel</span>
@@ -12,11 +11,10 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Page content -->
 <ion-content padding>
-
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
     <input placeholder="desc" name="desc" ngModel required #first="ngModel">
     <button ion-button>Save</button>
   </form>
-
 </ion-content>
