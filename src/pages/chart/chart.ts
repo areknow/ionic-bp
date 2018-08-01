@@ -15,7 +15,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { ModalPage } from '../modal/modal';
 
 // Types
-import { Readings } from '../..//models/types';
+import { Readings } from '../../models/types';
 
 // ----------------------------------------------------------------------------
 // Class

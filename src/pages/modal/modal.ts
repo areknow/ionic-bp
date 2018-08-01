@@ -11,7 +11,7 @@ import { NavController, ViewController } from 'ionic-angular';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 // Types
-import { Readings } from '../..//models/types';
+import { Readings } from '../../models/types';
 
 
 // ----------------------------------------------------------------------------
