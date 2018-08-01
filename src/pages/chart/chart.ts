@@ -14,12 +14,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 // Components
 import { ModalPage } from '../modal/modal';
 
-// Interfaces
-export interface readings {
-  systolic: string;
-  diastolic: boolean;
-  date: string;
-}
+// Types
+import { Readings } from '../..//models/types';
 
 // ----------------------------------------------------------------------------
 // Class
@@ -31,8 +27,8 @@ export interface readings {
 export class ChartPage {
 
   // Initialize the collection reference and todo list
-  collection: AngularFirestoreCollection<readings>;
-  readings$: Observable<readings[]>;
+  collection: AngularFirestoreCollection<Readings>;
+  readings$: Observable<Readings[]>;
 
   // ----------------------------------------------------------------------------
   // Inject services
@@ -47,7 +43,7 @@ export class ChartPage {
   // Page loaded
   // ------------------------------------------------------
   ionViewDidLoad() {
-    this.collection = this.afs.collection<readings>('readings');
+    this.collection = this.afs.collection<Readings>('readings');
     this.readings$ = this.collection.valueChanges();
 
     this.readings$.subscribe((data: any) => {

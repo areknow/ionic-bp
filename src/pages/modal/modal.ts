@@ -10,12 +10,9 @@ import { NavController, ViewController } from 'ionic-angular';
 // Third party
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-// Interfaces
-export interface readings {
-  systolic: string;
-  diastolic: boolean;
-  date: string;
-}
+// Types
+import { Readings } from '../..//models/types';
+
 
 // ----------------------------------------------------------------------------
 // Class
@@ -27,7 +24,7 @@ export interface readings {
 export class ModalPage {
 
   // Initialize the collection reference
-  collection: AngularFirestoreCollection<readings>;
+  collection: AngularFirestoreCollection<Readings>;
 
   // Init date time 
   localDateTime: string;
@@ -46,7 +43,7 @@ export class ModalPage {
   // ------------------------------------------------------
   ionViewDidLoad() {
     // Prepare the collection
-    this.collection = this.afs.collection<readings>('readings');
+    this.collection = this.afs.collection<Readings>('readings');
     // Set the date picker up
     const tzoffset = (new Date()).getTimezoneOffset() * 60000;
     this.localDateTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0,-1);
