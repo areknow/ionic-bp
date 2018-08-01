@@ -12,8 +12,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Components
 import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { ModalPage } from '../pages/modal/modal';
 
 // Third party
@@ -30,8 +28,6 @@ import { environment } from '../environments/environment';
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
-    HomePage,
     ModalPage
   ],
   imports: [
@@ -44,8 +40,6 @@ import { environment } from '../environments/environment';
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
-    HomePage,
     ModalPage
   ],
   providers: [
