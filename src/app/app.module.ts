@@ -14,6 +14,9 @@ import { MyApp } from './app.component';
 import { ChartPage } from '../pages/chart/chart';
 import { ModalPage } from '../pages/modal/modal';
 
+// Pipes
+import { dateSortPipe } from '../pipes/date-sort';
+
 // Third party
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
@@ -29,7 +32,8 @@ import { environment } from '../environments/environment';
   declarations: [
     MyApp,
     ChartPage,
-    ModalPage
+    ModalPage,
+    dateSortPipe
   ],
   imports: [
     BrowserModule,

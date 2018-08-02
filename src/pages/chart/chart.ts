@@ -3,13 +3,14 @@
 // ============================================================================
 
 // Angular + Ionic
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 
 // Third party
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { BaseChartDirective } from 'ng2-charts';
 
 // Components
 import { ModalPage } from '../modal/modal';
@@ -26,12 +27,18 @@ import { Readings } from '../../models/types';
 })
 export class ChartPage {
 
+  // ----------------------------------------------------------------------------
+  // Dom element references
+  // ----------------------------------------------------------------------------
+  @ViewChild(BaseChartDirective) private _chart;
+
   // Initialize chart loading boolean
   dataLoading = true;
 
   // Initialize the collection reference and todo list
   collection: AngularFirestoreCollection<Readings>;
   readings$: Observable<Readings[]>;
+  // readings = [];
 
   // Initialize chart js settings and variables
   public lineChartData: Array<any>;
@@ -96,8 +103,18 @@ export class ChartPage {
       let seriesA = { data: [], label: 'Systolic' };
       let seriesB = { data: [], label: 'Diastolic' };
       let labels = [];
+      // let reading = {
+      //   systolic: null,
+      //   diastolic: null,
+      //   date: null,
+      // }
       // Push incoming data to temp objects/array
       data.forEach(element => {
+        // this.readings.push(reading = {
+        //   systolic: element.systolic,
+        //   diastolic: element.diastolic,
+        //   date: element.date,
+        // });
         seriesA.data.push(element.systolic);
         seriesB.data.push(element.diastolic);
         labels.push(new Date(element.date).getTime());
