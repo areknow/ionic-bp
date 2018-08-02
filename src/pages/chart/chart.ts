@@ -38,7 +38,6 @@ export class ChartPage {
   // Initialize the collection reference and todo list
   collection: AngularFirestoreCollection<Readings>;
   readings$: Observable<Readings[]>;
-  // readings = [];
 
   // Initialize chart js settings and variables
   public lineChartData: Array<any>;
@@ -103,18 +102,8 @@ export class ChartPage {
       let seriesA = { data: [], label: 'Systolic' };
       let seriesB = { data: [], label: 'Diastolic' };
       let labels = [];
-      // let reading = {
-      //   systolic: null,
-      //   diastolic: null,
-      //   date: null,
-      // }
       // Push incoming data to temp objects/array
       data.forEach(element => {
-        // this.readings.push(reading = {
-        //   systolic: element.systolic,
-        //   diastolic: element.diastolic,
-        //   date: element.date,
-        // });
         seriesA.data.push(element.systolic);
         seriesB.data.push(element.diastolic);
         labels.push(new Date(element.date).getTime());
@@ -124,6 +113,8 @@ export class ChartPage {
       this.lineChartLabels = labels;
       // Show chart after loading
       this.dataLoading = false;
+      // Not sure why i need this yet...
+      setTimeout(() => { this._chart.refresh() }, 1);
     }, (error: any) => console.log(error));
   }
 
