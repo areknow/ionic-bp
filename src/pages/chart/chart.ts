@@ -57,6 +57,13 @@ export class ChartPage {
             'day': 'dd',
           }
         }
+      }],
+      yAxes: [{
+        display: true,
+        ticks: {
+          suggestedMin: 0,
+          suggestedMax: 200,
+        }
       }]
     }
   };

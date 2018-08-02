@@ -28,7 +28,7 @@
   <!-- List -->
   <ion-list>
     <ion-item ion-item *ngFor="let reading of readings$ | async | dateSort">
-      {{ reading.date | date: "MMM d, yyy - h:mm" }} : {{ reading.systolic }}/{{ reading.diastolic }}
+      {{ reading.date | date: "MMM d, yyy - h:mm a" }} : {{ reading.systolic }}/{{ reading.diastolic }}
     </ion-item>
   </ion-list>
 
