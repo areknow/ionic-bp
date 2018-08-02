@@ -27,6 +27,8 @@ export class ModalPage {
   // Dom element references
   // ----------------------------------------------------------------------------
   @ViewChild('form') form: NgForm;
+
+  // Init form variables
   systolic: string;
   diastolic: string;
 
