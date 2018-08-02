@@ -120,7 +120,7 @@ export class ChartPage {
       this.lineChartLabels = labels;
       // Show chart after loading
       this.dataLoading = false;
-      // Not sure why i need this yet...
+      // Not sure why i need this timeout yet...
       setTimeout(() => { this._chart.refresh() }, 1);
     }, (error: any) => console.log(error));
   }
@@ -141,6 +141,15 @@ export class ChartPage {
   // ------------------------------------------------------
   openModal() {
     const modal = this.modalCtrl.create(ModalPage);
+    // const modal = this.modalCtrl.create(ModalPage, {update: "value"});
+    modal.present();
+  }
+
+  // ------------------------------------------------------
+  // Present the modal component with loaded values
+  // ------------------------------------------------------
+  editRow(reading) {
+    const modal = this.modalCtrl.create(ModalPage, {update: reading});
     modal.present();
   }
 

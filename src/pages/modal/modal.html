@@ -18,11 +18,11 @@
     <ion-list>
       <ion-item>
         <ion-label fixed>Systolic</ion-label>
-        <ion-input name="systolic" type="text" required ngModel></ion-input>
+        <ion-input name="systolic" type="text" required ngModel [(ngModel)]="systolic"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label fixed>Diastolic</ion-label>
-        <ion-input name="diastolic" type="text" required ngModel></ion-input>
+        <ion-input name="diastolic" type="text" required ngModel [(ngModel)]="diastolic"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Date</ion-label>
