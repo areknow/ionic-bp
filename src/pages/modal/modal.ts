@@ -102,4 +102,11 @@ export class ModalPage {
     this.viewCtrl.dismiss();
   }
 
+  // ------------------------------------------------------
+  // Remote the row item
+  // ------------------------------------------------------
+  remove() {
+    this.viewCtrl.dismiss();
+  }
+
 }

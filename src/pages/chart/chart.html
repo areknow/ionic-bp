@@ -24,8 +24,11 @@
 
   <!-- List -->
   <ion-list>
-    <ion-item *ngFor="let reading of readings$ | async | dateSort" (click)="editRow(reading)" >
-      {{ reading.date | date: "MMM d, yyy - h:mm a" }} : {{ reading.systolic }}/{{ reading.diastolic }}
+    <ion-item *ngFor="let reading of readings$ | async | dateSort" (click)="editRow(reading)">
+      <div class="col-wrapper">
+        <div class="col six">{{ reading.date | date: "MMM d, yyy - h:mm a" }}</div>
+        <div class="col six text-right">{{ reading.systolic }}/{{ reading.diastolic }}</div>
+      </div>
     </ion-item>
   </ion-list>
 

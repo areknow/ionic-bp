@@ -27,20 +27,6 @@ import { Readings } from '../../models/types';
 })
 export class ChartPage {
 
-  Highcharts = Highcharts;
-  chartOptions = {
-    xAxis: {
-      type: 'datetime',
-      dateTimeLabelFormats: {
-          day: '%e of %b'
-      }
-    },
-    series: [
-      {data: null },
-      {data: null }
-    ]
-  };
-
   // ----------------------------------------------------------------------------
   // Dom element references
   // ----------------------------------------------------------------------------
@@ -52,6 +38,27 @@ export class ChartPage {
   // Initialize the collection reference and todo list
   collection: AngularFirestoreCollection<Readings>;
   readings$: Observable<Readings[]>;
+
+  // Highcharts
+  Highcharts = Highcharts;
+  chartOptions = {
+    credits: { enabled: false },
+    title: null,
+    yAxis: {
+      max: 200,
+      min: 0,
+      title: {
+        enabled: false,
+      }
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    series: [
+      { name: 'Systolic', data: [] },
+      { name: 'Diastolic', data: [] }
+    ]
+  };
 
   // ----------------------------------------------------------------------------
   // Inject services
@@ -72,17 +79,11 @@ export class ChartPage {
     this.readings$.subscribe((data: any) => {
       // Sort incoming data
       this.sortArray(data);
-      // Setup temp data holders
-      let seriesA = { data: []};
-      let seriesB = { data: []};
       // Push incoming data to temp objects/array
       data.forEach(element => {
-        seriesA.data.push([new Date(element.date).getTime(), Number(element.systolic)]);
-        seriesB.data.push([new Date(element.date).getTime(), Number(element.diastolic)]);
+        this.chartOptions.series[0].data.push([new Date(element.date).getTime(), Number(element.systolic)]);
+        this.chartOptions.series[1].data.push([new Date(element.date).getTime(), Number(element.diastolic)]);
       });
-      // Pass data to chart object
-      this.chartOptions.series[0] = seriesA;
-      this.chartOptions.series[1] = seriesB;
       // Show chart after loading
       this.dataLoading = false;
       // Refresh chart data
@@ -115,6 +116,7 @@ export class ChartPage {
   // Present the modal component with loaded values
   // ------------------------------------------------------
   editRow(reading) {
+    console.log(reading);
     const modal = this.modalCtrl.create(ModalPage, {update: reading});
     modal.present();
   }
