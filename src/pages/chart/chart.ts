@@ -10,7 +10,7 @@ import { ModalController } from 'ionic-angular';
 
 // Third party
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { BaseChartDirective } from 'ng2-charts';
+import Highcharts from 'highcharts';
 
 // Components
 import { ModalPage } from '../modal/modal';
@@ -27,10 +27,24 @@ import { Readings } from '../../models/types';
 })
 export class ChartPage {
 
+  Highcharts = Highcharts;
+  chartOptions = {
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+          day: '%e of %b'
+      }
+    },
+    series: [
+      {data: null },
+      {data: null }
+    ]
+  };
+
   // ----------------------------------------------------------------------------
   // Dom element references
   // ----------------------------------------------------------------------------
-  @ViewChild(BaseChartDirective) private _chart;
+  @ViewChild('chart') private chart;
 
   // Initialize chart loading boolean
   dataLoading = true;
@@ -38,53 +52,6 @@ export class ChartPage {
   // Initialize the collection reference and todo list
   collection: AngularFirestoreCollection<Readings>;
   readings$: Observable<Readings[]>;
-
-  // Initialize chart js settings and variables
-  public lineChartData: Array<any>;
-  public lineChartLabels: Array<any>;
-  public lineChartOptions: any = {
-    responsive: true,
-    scales: {
-      xAxes: [{
-        gridLines : { display: false },
-        type: 'time',
-        time: {
-          tooltipFormat: 'ddd, MMM Do',
-          unit: 'day',
-          displayFormats: {
-            'month': 'MMM',
-            'hour': 'HH',
-            'day': 'dd',
-          }
-        }
-      }],
-      yAxes: [{
-        display: true,
-        ticks: {
-          suggestedMin: 0,
-          suggestedMax: 200,
-        }
-      }]
-    }
-  };
-  public lineChartColors: Array<any> = [{
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },{
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    }
-  ];
-  public lineChartLegend: boolean = true;
-  public lineChartType: string = 'line';
 
   // ----------------------------------------------------------------------------
   // Inject services
@@ -106,22 +73,22 @@ export class ChartPage {
       // Sort incoming data
       this.sortArray(data);
       // Setup temp data holders
-      let seriesA = { data: [], label: 'Systolic' };
-      let seriesB = { data: [], label: 'Diastolic' };
-      let labels = [];
+      let seriesA = { data: []};
+      let seriesB = { data: []};
       // Push incoming data to temp objects/array
       data.forEach(element => {
-        seriesA.data.push(element.systolic);
-        seriesB.data.push(element.diastolic);
-        labels.push(new Date(element.date).getTime());
+        seriesA.data.push([new Date(element.date).getTime(), Number(element.systolic)]);
+        seriesB.data.push([new Date(element.date).getTime(), Number(element.diastolic)]);
       });
       // Pass data to chart object
-      this.lineChartData = [ seriesA, seriesB ]
-      this.lineChartLabels = labels;
+      this.chartOptions.series[0] = seriesA;
+      this.chartOptions.series[1] = seriesB;
       // Show chart after loading
       this.dataLoading = false;
-      // Not sure why i need this timeout yet...
-      setTimeout(() => { this._chart.refresh() }, 1);
+      // Refresh chart data
+      if (this.chart !== undefined) {
+        this.chart.updateOrCreateChart();
+      }
     }, (error: any) => console.log(error));
   }
 
@@ -130,8 +97,8 @@ export class ChartPage {
   // ------------------------------------------------------
   sortArray(array) {
     array.sort(function(a, b) {
-      const dateA:any = new Date(a.date);
-      const dateB:any = new Date(b.date);
+      const dateA: any = new Date(a.date);
+      const dateB: any = new Date(b.date);
       return dateA - dateB;
     });
   }
@@ -141,7 +108,6 @@ export class ChartPage {
   // ------------------------------------------------------
   openModal() {
     const modal = this.modalCtrl.create(ModalPage);
-    // const modal = this.modalCtrl.create(ModalPage, {update: "value"});
     modal.present();
   }
 

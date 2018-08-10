@@ -20,7 +20,8 @@ import { dateSortPipe } from '../pipes/date-sort';
 // Third party
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 // Environment
 import { environment } from '../environments/environment';
@@ -40,7 +41,8 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    ChartsModule
+    // ChartsModule,
+    HighchartsChartModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
