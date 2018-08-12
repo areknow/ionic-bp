@@ -7,6 +7,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
 
 // Third party
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -42,6 +43,9 @@ export class ChartPage {
   // Highcharts
   Highcharts = Highcharts;
   chartOptions = {
+    legend : {
+      enabled: false
+    },
     credits: { enabled: false },
     title: null,
     yAxis: {
@@ -60,6 +64,8 @@ export class ChartPage {
     ]
   };
 
+  shirts: any;
+
   // ----------------------------------------------------------------------------
   // Inject services
   // ----------------------------------------------------------------------------
@@ -67,14 +73,24 @@ export class ChartPage {
     public navCtrl: NavController,
     private afs: AngularFirestore,
     public modalCtrl: ModalController
-  ) { }
+  ) {
+    // Prepare collection with custom type
+    this.collection = this.afs.collection<Readings>('readings');
+    // Watch the collection for changes and also return doc id
+    this.readings$ = this.collection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Readings;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
+    // this.readings$ = this.collection.valueChanges();
+  }
 
   // ------------------------------------------------------
   // Page loaded
   // ------------------------------------------------------
   ionViewDidLoad() {
-    this.collection = this.afs.collection<Readings>('readings');
-    this.readings$ = this.collection.valueChanges();
     // Subscribe to firebase collection
     this.readings$.subscribe((data: any) => {
       // Sort incoming data
